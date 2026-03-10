@@ -1,0 +1,32 @@
+# Deploy nginx on Spot instances (any architecture)
+# Karpenter will select the cheapest available Spot instance type
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-spot
+  labels:
+    app: nginx-spot
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-spot
+  template:
+    metadata:
+      labels:
+        app: nginx-spot
+    spec:
+      nodeSelector:
+        karpenter.sh/capacity-type: spot
+      containers:
+        - name: nginx
+          image: public.ecr.aws/nginx/nginx:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
