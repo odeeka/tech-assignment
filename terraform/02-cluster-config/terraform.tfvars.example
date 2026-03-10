@@ -1,0 +1,16 @@
+cluster_name      = "opsfleet-eks"
+aws_region        = "eu-central-1"
+karpenter_version = "1.9.0"
+
+# These values come from Stage 1 (01-base-infra) outputs.
+# When using Terragrunt, they are injected automatically via dependency.
+# When using plain Terraform, copy them from: cd ../01-base-infra && terraform output
+cluster_endpoint                   = ""
+cluster_certificate_authority_data = ""
+karpenter_queue_name               = ""
+karpenter_node_iam_role_name       = ""
+
+tags = {
+  environment = "dev"
+  team        = "platform"
+}

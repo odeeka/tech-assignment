@@ -1,0 +1,32 @@
+# Deploy nginx on Graviton (ARM64) instances
+# Karpenter will automatically provision a Graviton node if one isn't available
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-graviton
+  labels:
+    app: nginx-graviton
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-graviton
+  template:
+    metadata:
+      labels:
+        app: nginx-graviton
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64
+      containers:
+        - name: nginx
+          image: public.ecr.aws/nginx/nginx:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"

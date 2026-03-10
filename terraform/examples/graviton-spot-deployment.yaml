@@ -1,0 +1,33 @@
+# Deploy nginx on Graviton Spot instances (best price/performance)
+# Combines ARM64 architecture with Spot pricing for maximum cost efficiency
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-graviton-spot
+  labels:
+    app: nginx-graviton-spot
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-graviton-spot
+  template:
+    metadata:
+      labels:
+        app: nginx-graviton-spot
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: arm64
+        karpenter.sh/capacity-type: spot
+      containers:
+        - name: nginx
+          image: public.ecr.aws/nginx/nginx:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
