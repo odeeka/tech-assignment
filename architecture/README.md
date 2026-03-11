@@ -157,7 +157,7 @@ A few things that keep the bill reasonable:
 - **S3 + CloudFront** for the SPA means we're not running pods just to serve static files.
 - **One NAT Gateway** to start (~$30/mo) instead of three. Move to per-AZ NAT Gateways later if you need HA on the egress path.
 
-Rough launch cost: ~$300/month depending on traffic. That includes the EKS control plane ($73), two Graviton nodes (~$50), RDS Multi-AZ (~$25), NAT Gateway (~$30), and miscellaneous bits.
+Rough launch cost: $300/month depending on traffic. That includes the EKS control plane ($73), two Graviton nodes ($50), RDS Multi-AZ ($25), NAT Gateway ($30), and miscellaneous bits.
 
 ---
 
